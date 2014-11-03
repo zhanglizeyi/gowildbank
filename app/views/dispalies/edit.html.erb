@@ -1,0 +1,31 @@
+<h1>Editing the username and password</h1>
+
+<%= form_for :dispaly, url: dispaly_path(@dispaly), method: :patch do |f| %>
+  <% if @dispaly.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@dispaly.errors.count, "error") %> prohibited
+      this object from being saved:</h2>
+    <ul>
+    <% @dispaly.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<%= link_to 'Show', @dispaly %> |
+<%= link_to 'Back', dispalies_path %>

@@ -1,0 +1,32 @@
+<h1>GoWildBank</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Remember</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dispalies.each do |dispaly| %>
+      <tr>
+        <td><%= dispaly.username %></td>
+        <td><%= dispaly.password %></td>
+        <td><%= dispaly.remember %></td>
+        <td><%= dispaly.date %></td>
+        <td><%= link_to 'Show', dispaly %></td>
+        <td><%= link_to 'Edit', edit_dispaly_path(dispaly) %></td>
+        <td><%= link_to 'Destroy', dispaly, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'login', login_dispaly_path(dispaly) %>
+<%= link_to 'New Dispaly', new_dispaly_path %>
