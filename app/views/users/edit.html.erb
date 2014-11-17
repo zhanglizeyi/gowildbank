@@ -1,0 +1,9 @@
+<h1>Profile of User: <%= @user.username %></h1>
+<div>
+  <%= form_for(:user, :url => {:controller => 'users', :action => 'update'}) do |f| %>
+  <p> Debit:</br> <%= f.number_field :debit, :value => @user.debit %> </p>
+  <p> Credit:</br> <%= f.number_field :credit, :value => @user.credit %> </p>
+  <%= f.submit :OK %>
+  <% end %>
+</div>
+

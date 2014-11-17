@@ -1,0 +1,90 @@
+<h1>You are: <%= @user.username %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Type</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.bank_accounts.each do |bank_account| %>
+    <tr>
+      <td><%= bank_account.label %></td>
+      <td><%= bank_account.account_type%></td>
+      <td><%= bank_account.balance %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<form role="form" class="form-inline" action="/users/<%=@user.username%>/accounts" method="post">
+  <%= form_for(:user, :url => {:controller => 'users', :action => 'create_bank_account'}) do |f| %>
+  
+  <div class="form-group">
+    <label for="account[label]">Label:</label>
+    <input type="text" name="account[label]"/>
+  </div>
+  
+  <div class="form-group">
+    <label for="account[account_type]">Type:</label>
+    <select name="account[account_type]">
+      <option value="checking">checking</option>
+      <option value="saving">saving</option>
+      <option value="credit">credit</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <input type="submit" name="commit" value="Create">
+  </div>
+
+  <% end %>
+</form>
+
+<div>
+  <a href="<%= @user.username %>/accounts/create">Create Account</a>
+</div>
+
+<div>
+  <a href="<%= @user.username %>/edit">Edit profile</a>
+</div>
+
+<style>
+
+
+  body {
+  background-image: url('http://fc00.deviantart.net/fs36/f/2008/275/e/d/Black_WallStreet_WallPaper_2_by_BlackWallStreet_Club.jpg'); 
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+
+  link{
+  font-size: 200%;
+  font-family: "Times New Roman", Georgia, Serif;
+  }
+
+  head1{
+  font-style: italic;
+  font-size: 200%;
+  text-align: justify;
+  text-shadow: 1px 1px rgb(150,0,0);
+  font-family: "Times New Roman", Georgia, Serif;
+  color: rgb(150,0,0);
+  }
+  text{
+  
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-style: italic;
+  text-align: justify;
+  text-shadow: 1px 1px rgb(150,0,0);
+  font-family: "chalkduster", cursive, serif;
+  color: rgb(150,0,0);
+  }
+
+</style>

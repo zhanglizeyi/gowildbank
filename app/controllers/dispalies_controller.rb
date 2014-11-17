@@ -13,10 +13,6 @@ class DispaliesController < ApplicationController
   def show
   end
 
-  # Get logoin
-  def login
-  end
-
   # GET /dispalies/new
   def new
     @dispaly = Dispaly.new
@@ -26,6 +22,12 @@ class DispaliesController < ApplicationController
   def edit
     @dispaly = Dispaly.find(params[:id])
   end
+
+def login
+  @dispalies = Dispaly.find(params[:id])
+  
+end
+
 
   # POST /dispalies
   # POST /dispalies.json
@@ -38,7 +40,7 @@ class DispaliesController < ApplicationController
         format.html { redirect_to @dispaly, notice: 'Dispaly was successfully created.' }
         format.json { render :show, status: :created, location: @dispaly }
       else
-        format.html { render :new }
+        
         format.html { render :login }
         format.json { render json: @dispaly.errors, status: :unprocessable_entity }
       end
@@ -79,6 +81,4 @@ class DispaliesController < ApplicationController
     def set_dispaly
       @dispaly = Dispaly.find(params[:id])
     end
-
- 
 end

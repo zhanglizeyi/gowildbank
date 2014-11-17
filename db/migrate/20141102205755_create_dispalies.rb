@@ -7,7 +7,7 @@ class CreateDispalies < ActiveRecord::Migration
       t.date :date
       t.string :DOB
 
-      t.timestamps
+      t.timestamps null:false
     end
   end
 end

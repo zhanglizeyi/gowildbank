@@ -1,0 +1,4 @@
+class FixAccountTypeColumnName < ActiveRecord::Migration
+  def change
+  end
+end

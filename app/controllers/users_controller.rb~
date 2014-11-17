@@ -1,0 +1,103 @@
+require 'bcrypt'
+class UsersController < ApplicationController
+  http_basic_authenticate_with name: "zzz", password: "1234"
+  
+  def validate(record)
+      if record.username = nil
+        record.error[:base] << "This is null"
+      end
+    end
+
+
+  def new
+    @user = User.new 
+  end
+
+  def create
+    input_user = user_params
+    password = input_user[:password]
+    password_confirmation = input_user[:password_confirmation]
+    
+    #if password != password_confirmation
+    # Report error to user and return
+    #end
+
+    # user_data is a object with fields: username, email, salt, encrypted_password
+    user_data = {}
+    user_data[:username] = input_user[:username]
+    user_data[:email] = input_user[:email]
+    user_data[:salt] = BCrypt::Engine.generate_salt
+    user_data[:encrypted_password] = BCrypt::Engine.hash_secret(password, user_data[:salt])
+    
+    #user_data[:debit] = 0.0
+    #user_data[:credit] = 0.0
+    
+    @user = User.new(user_data)
+
+    if @user.save
+      flash.notice = "you signed up successfully"
+      flash.notice = "valid"
+      print "save success"
+      redirect_to("/login")
+    #render 'new'
+    else
+      flash.notice = "invalid"
+      #render 'new'
+      print "save fails"
+      redirect_to("/login")
+    end
+  end
+  
+  def show
+    # find user by user name
+    print "show params: #{params}"
+    
+    #@user = User.find(params[:username])
+    
+    @user = User.find_by username: params[:username]
+
+    print "show user: #{@user}"
+    print "username: #{@user.username}"
+    
+    # render user profile based on user object
+  end
+
+  def edit
+    @user = User.find_by username: params[:username]
+  end
+
+  def update
+    user = User.find_by username: params[:username]
+    if user == nil
+      # report error
+    end
+
+    # update user data in db
+    user_input_data = get_update_balance_params
+    
+    #input_debit = user_input_data[:debit]
+    #input_credit = user_input_data[:credit] //not use
+
+    #user.debit = input_debit
+    #user.credit = input_credit
+
+    if !user.save
+      # save to db not success, report error to user
+      flash[:notice] = "Can't create new user, try again"
+      redirect_to "/users/new"
+    end
+    @user = user
+    redirect_to "/users/#{@user.username}"
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
+
+  def get_update_balance_params
+    params.require(:user).permit(:debit, :credit)
+  end
+
+
+end

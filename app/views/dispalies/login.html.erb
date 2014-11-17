@@ -1,18 +1,7 @@
 <h1>Welcome</h1>
 <p>successful login</p>
 
-<%= form_for :dispaly, url: dispaly_path(@dispaly), method: :patch do |f| %>
-  <% if @dispaly.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@dispaly.errors.count, "error") %> prohibited
-      this object from being saved:</h2>
-    <ul>
-    <% @dispaly.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
+<%= form_for(@dispaly) do |f| %>
 
   <div class="field">
     <%= f.label :username %><br>
@@ -26,7 +15,10 @@
     <%= f.submit %>
   </div>
 
+  <% if @dispaly.save %>
+  <% end %>
 <% end %>
 
 <%= link_to 'Show', @dispaly %> |
 <%= link_to 'Back', dispalies_path %>
+

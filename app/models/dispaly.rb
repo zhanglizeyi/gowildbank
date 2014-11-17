@@ -5,4 +5,12 @@ class Dispaly < ActiveRecord::Base
 	validates :password, length: {maximum: 15}
 	validates :password, length: {minimum: 4}
 	validates :password, :presence => true, :uniqueness => true
+	
+	attr_accessor :password
+	def formatted_email
+    	"#{@username} <#{@password}>"
+ 	 end
+	
 end
+
+

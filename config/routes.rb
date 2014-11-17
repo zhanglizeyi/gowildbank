@@ -1,5 +1,25 @@
 Rails.application.routes.draw do
+
+  get 'contact/contact_info'
+
+  get 'about/about'
+
+  get 'welcome/index'
+
+  get 'show/index'
+  get 'show/index1'
+  post 'show/index1'
+  get 'login' => 'login#index'
+  post 'login/login'
+  get 'users/new'
+  get 'users/:username' => 'users#show'
+  get 'users/:username/edit' => 'users#edit'
+  post 'users/:username' => 'users#update'
+  post 'users/:username/accounts' => 'users#create_bank_account'
+
+  resources :show
   resources :dispalies
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

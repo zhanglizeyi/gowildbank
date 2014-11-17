@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  accout_type: MyString
+  balance: 1.5
+
+two:
+  accout_type: MyString
+  balance: 1.5

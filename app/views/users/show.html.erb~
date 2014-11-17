@@ -1,0 +1,50 @@
+<head1>You are: <%= @user.username %></head1></br>
+<link>
+<a href="<%= @user.username %>/create account">Create Account</a>
+</link>
+
+</br></br>
+
+<div>Debit: <%= @user.debit%></div>
+<div>Credit: <%= @user.credit%></div>
+<link>
+<a href="<%= @user.username %>/edit">Edit profile</a>
+</link>
+
+<style>
+
+
+ body {
+ 	background-image: url('http://fc00.deviantart.net/fs36/f/2008/275/e/d/Black_WallStreet_WallPaper_2_by_BlackWallStreet_Club.jpg'); 
+  	height: 100%;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+link{
+	font-size: 200%;
+	font-family: "Times New Roman", Georgia, Serif;
+}
+
+head1{
+	font-style: italic;
+	font-size: 200%;
+	text-align: justify;
+	text-shadow: 1px 1px rgb(150,0,0);
+	font-family: "Times New Roman", Georgia, Serif;
+	color: rgb(150,0,0);
+}
+text{
+	
+	text-decoration: underline;
+	text-transform: uppercase;
+	font-style: italic;
+	text-align: justify;
+	text-shadow: 1px 1px rgb(150,0,0);
+	font-family: "chalkduster", cursive, serif;
+	color: rgb(150,0,0);
+}
+
+</style>
