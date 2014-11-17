@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'users/:username/edit' => 'users#edit'
   post 'users/:username' => 'users#update'
   post 'users/:username/accounts' => 'users#create_bank_account'
+  delete 'users/:username/accounts/:account_label' => 'users#delete_bank_account'
 
   resources :show
   resources :dispalies

@@ -1,0 +1,13 @@
+$(document).ready(function() {
+    $('.delete-account-btn').click(function() {
+	deleteUrl = $(this).data('url');
+	username = $(this).data('username');
+	$.ajax({ 
+            url: deleteUrl, 
+            type: 'DELETE',
+            success: function(result) {
+                window.location.href = '/users/' + username;
+	    }
+        })
+    });
+});

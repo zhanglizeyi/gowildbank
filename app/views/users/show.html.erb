@@ -1,4 +1,21 @@
-<h1>You are: <%= @user.username %></h1>
+<h1>Welcome Back </h1>
+<h2><%= @user.username %></h2>
+<style>
+  h1{
+    text-decoration: underline;
+    color: rgb(200,0,0);
+  }
+  .table{
+    text-align: justify;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 150%;
+    color: rgb(200,0,0);
+  }
+  .form-inline{
+    text-align: center;
+    font-size: 150%;
+  }
+</style>
 
 <table class="table">
   <thead>
@@ -14,6 +31,9 @@
       <td><%= bank_account.label %></td>
       <td><%= bank_account.account_type%></td>
       <td><%= bank_account.balance %></td>
+      <td>
+	<button class="delete-account-btn" data-username="<%= @user.username %>" data-url="/users/<%=@user.username%>/accounts/<%= bank_account.label%>">Delete</button>
+      </td>
     </tr>
     <% end %>
   </tbody>
@@ -38,53 +58,8 @@
   
   <div class="form-group">
     <input type="submit" name="commit" value="Create">
-  </div>
-
-  <% end %>
+  </div>  
+  <% end %>  
 </form>
 
-<div>
-  <a href="<%= @user.username %>/accounts/create">Create Account</a>
-</div>
-
-<div>
-  <a href="<%= @user.username %>/edit">Edit profile</a>
-</div>
-
-<style>
-
-
-  body {
-  background-image: url('http://fc00.deviantart.net/fs36/f/2008/275/e/d/Black_WallStreet_WallPaper_2_by_BlackWallStreet_Club.jpg'); 
-  height: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  }
-
-  link{
-  font-size: 200%;
-  font-family: "Times New Roman", Georgia, Serif;
-  }
-
-  head1{
-  font-style: italic;
-  font-size: 200%;
-  text-align: justify;
-  text-shadow: 1px 1px rgb(150,0,0);
-  font-family: "Times New Roman", Georgia, Serif;
-  color: rgb(150,0,0);
-  }
-  text{
-  
-  text-decoration: underline;
-  text-transform: uppercase;
-  font-style: italic;
-  text-align: justify;
-  text-shadow: 1px 1px rgb(150,0,0);
-  font-family: "chalkduster", cursive, serif;
-  color: rgb(150,0,0);
-  }
-
-</style>
+<%= javascript_include_tag "application" %>

@@ -129,6 +129,37 @@ class UsersController < ApplicationController
     # redirect_to "/users/#{@user.username}"
   end
 
+  def delete_bank_account
+    input_params = delete_account_params
+    username = input_params[:username]
+
+    user = User.find_by username: username
+    if !user
+      render inline: "user with name #{username} is not found!!"
+      return
+    end
+
+    
+    print "input: #{input_params}"
+    print "user #{user}"
+
+
+    label = input_params[:account_label]
+
+    print "label #{label}"
+
+    bank_account_to_be_deleted = user.bank_accounts.find_by label: label
+    
+    if !bank_account_to_be_deleted
+      render inline: "account with label #{label} is not found!!"
+      return
+    end
+
+    user.bank_accounts.destroy(bank_account_to_be_deleted.id)
+    
+    redirect_to '/users/#{username}'
+  end
+
   private
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
@@ -143,6 +174,13 @@ class UsersController < ApplicationController
       :username => params[:username],
       :account_type => params[:account][:account_type],
       :label => params[:account][:label]
+    }
+  end
+
+  def delete_account_params
+    result = {
+      :username => params[:username],
+      :account_label => params[:account_label]
     }
   end
 
