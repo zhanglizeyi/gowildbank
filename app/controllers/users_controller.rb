@@ -1,6 +1,6 @@
 require 'bcrypt'
 class UsersController < ApplicationController
-  http_basic_authenticate_with name: "zzz", password: "1234"
+  #http_basic_authenticate_with name: "zzz", password: "1234"
   
   def validate(record)
     if record.username = nil
@@ -30,21 +30,30 @@ class UsersController < ApplicationController
     
     #user_data[:debit] = 0.0
     #user_data[:credit] = 0.0
-    
-    @user = User.new(user_data)
+    #user = User.find_by username: username
 
-    if @user.save
-      flash.notice = "you signed up successfully"
-      flash.notice = "valid"
-      print "save success"
-      redirect_to("/login")
-    #render 'new'
-    else
-      flash.notice = "invalid"
-      #render 'new'
-      print "save fails"
-      redirect_to("/login")
-    end
+    #input_name = user_params[:username]
+    #input_name_exist = input_user.find_by username: input_name
+
+    #input_email = user_params[:email]
+    #input_email_exist = User.find_by email: input_email
+
+
+    if user_data[:username] != "" && user_data[:email] != "" &&
+      user_data[:salt] !="" && user_data[:encrypted_password] != ""
+      #if !input_email_exist && !input_name_exist
+        @user = User.new(user_data)
+        @user.save
+        print "save success"
+        redirect_to("/login")
+        #render 'new'
+      else
+        flash.notice = "invalid"
+        #render 'new'
+        print "save fails"
+        render inline: "Can't access with less information, full fill"
+      end
+    #end
   end
   
   def show
@@ -114,18 +123,26 @@ class UsersController < ApplicationController
     bank_account_data[:user_id] = user.id
     @bank_account = BankAccount.new(bank_account_data)
 
-    if @bank_account.save
+    label = create_account_params[:label]
+    label_exist = user.bank_accounts.find_by label: label
+
+    print "label_exist ==========================> #{label_exist}"
+
+    #change the multiple label and nil label
+    if !label_exist && label_exist != ""
+      @bank_account.save
+      redirect_to("/users/#{user.username}")
       print "created bank_account of type #{@bank_account.account_type}\n."
     else
+      render inline: "Duplicate label OR empty Label!!!!"
       print "fail to create bank_account of type #{@bank_account.account_type}\n."
     end
-    redirect_to("/users/#{user.username}")
+    #redirect_to("/users/#{user.username}")
    
     # input_params = create_account_params
     # user = User.find_by username: input_params[:username]
     # @user = user
     # print "user is #{user}"
-
     # redirect_to "/users/#{@user.username}"
   end
 
