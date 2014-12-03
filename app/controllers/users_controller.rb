@@ -38,10 +38,14 @@ class UsersController < ApplicationController
     #input_email = user_params[:email]
     #input_email_exist = User.find_by email: input_email
 
+    user_exist =  User.find(input_user[:username])
+    print "user============================> #{user_exist}"
+
 
     if user_data[:username] != "" && user_data[:email] != "" &&
-      user_data[:salt] !="" && user_data[:encrypted_password] != ""
-      #if !input_email_exist && !input_name_exist
+      user_data[:salt] !="" && user_data[:encrypted_password] != "" &&
+      user_exist != input_user[:username]
+        
         @user = User.new(user_data)
         @user.save
         print "save success"
@@ -53,7 +57,6 @@ class UsersController < ApplicationController
         print "save fails"
         render inline: "Can't access with less information, full fill"
       end
-    #end
   end
   
   def show
@@ -129,7 +132,7 @@ class UsersController < ApplicationController
     print "label_exist ==========================> #{label_exist}"
 
     #change the multiple label and nil label
-    if !label_exist && label_exist != ""
+    if !label_exist && label != ""
       @bank_account.save
       redirect_to("/users/#{user.username}")
       print "created bank_account of type #{@bank_account.account_type}\n."
@@ -156,10 +159,8 @@ class UsersController < ApplicationController
       return
     end
 
-    
     print "input: #{input_params}"
     print "user #{user}"
-
 
     label = input_params[:account_label]
 
