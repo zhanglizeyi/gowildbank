@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     #input_email = user_params[:email]
     #input_email_exist = User.find_by email: input_email
 
-    user_exist =  User.find(input_user[:username])
+    user_exist =  User.find_by username: params[:username]
     print "user============================> #{user_exist}"
 
 

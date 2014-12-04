@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  From_account: MyString
+  To_Account: MyString
+  Amount: 9.99
+
+two:
+  From_account: MyString
+  To_Account: MyString
+  Amount: 9.99

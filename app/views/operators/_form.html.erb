@@ -1,0 +1,33 @@
+<%= form_for(@operator) do |f| %>
+  <% if @operator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@operator.errors.count, "error") %> prohibited this operator from being saved:</h2>
+
+      <ul>
+      <% @operator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :label %><br>
+    <%= f.text_field :label %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :transfer %><br>
+    <%= f.text_field :transfer %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
