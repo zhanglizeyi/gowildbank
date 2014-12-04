@@ -106,6 +106,7 @@ class UsersController < ApplicationController
     redirect_to "/users/#{@user.username}"
   end
 
+
   def create_bank_account
     input_account_params = create_account_params
     account_type = input_account_params[:account_type]
