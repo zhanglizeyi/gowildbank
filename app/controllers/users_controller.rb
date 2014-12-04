@@ -110,6 +110,7 @@ class UsersController < ApplicationController
     input_account_params = create_account_params
     account_type = input_account_params[:account_type]
     label = input_account_params[:label]
+    label = rand(32900000000 .. 32999999999).to_s
     username = input_account_params[:username]
 
     user = User.find_by username: username
