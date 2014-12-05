@@ -2,7 +2,7 @@
 
 <p>
   <strong>From account:</strong>
-  <%= @transfer.From_account %>
+  <%= @transfer.From_Account %>
 </p>
 
 <p>
@@ -15,5 +15,9 @@
   <%= @transfer.Amount %>
 </p>
 
-<%= link_to 'Edit', edit_transfer_path(@transfer) %> |
+<p>
+	<strong>Time:</strong>
+	<%= Time.now.strftime("%d/%m/%Y %H:%M") %>
+</p>
+
 <%= link_to 'Back', transfers_path %>

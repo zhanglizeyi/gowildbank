@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :transfers
+
   get 'contact/contact_info'
-
   get 'about/about'
-
   get 'welcome/index'
-
   get 'show/index'
   get 'show/index1'
   post 'show/index1'
@@ -17,6 +16,8 @@ Rails.application.routes.draw do
   post 'users/:username' => 'users#update'
   post 'users/:username/accounts' => 'users#create_bank_account'
   delete 'users/:username/accounts/:account_label' => 'users#delete_bank_account'
+  post 'users/:username/accounts/:account_label' => 'transfers#find'
+
 
   resources :show
   resources :dispalies

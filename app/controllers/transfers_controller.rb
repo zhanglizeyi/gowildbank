@@ -17,22 +17,30 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new
   end
 
-  # GET /transfers/1/edit
-  def edit
-  end
-
   # POST /transfers
   # POST /transfers.json
   def create
     @transfer = Transfer.new(transfer_params)
 
-    respond_to do |format|
-      if @transfer.save
-        format.html { redirect_to @transfer, notice: 'Transfer was successfully created.' }
-        format.json { render :show, status: :created, location: @transfer }
-      else
-        format.html { render :new }
-        format.json { render json: @transfer.errors, status: :unprocessable_entity }
+    account_number = 
+    print "length ==================================> #{@transfer[:From_Account].length}"
+
+    if @transfer[:From_Account] == "" || @transfer[:To_Account] == "" ||
+      @transfer[:Amount] == "" 
+      render text: "input can not be empty!!"
+    else
+        if @transfer[:From_Account].length != 12 || @transfer[:To_Account].length != 12
+          render text: "Could not find valid account"
+        else
+          respond_to do |format|
+          if @transfer.save
+            format.html { redirect_to @transfer, notice: 'Transfer was successfully created.' }
+            format.json { render :show, status: :created, location: @transfer }
+          else
+            format.html { render :new }
+            format.json { render json: @transfer.errors, status: :unprocessable_entity }
+          end
+        end
       end
     end
   end
@@ -61,6 +69,21 @@ class TransfersController < ApplicationController
     end
   end
 
+  # transfer 
+  #find user
+  def find
+    input_params = find_account_params
+    label = user.find_by label: params[:label]
+
+    from_account = input_params[:From_Account]
+    to_account = input_params[:To_Account]
+    amount = input_params[:Amount]
+
+    print "from_account =========================> #{from_account}"
+    print "to_account =========================> #{to_account}"
+    print "amount =============================> #{amount}"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transfer
@@ -69,6 +92,12 @@ class TransfersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transfer_params
-      params.require(:transfer).permit(:From_account, :To_Account, :Amount)
+      params.require(:transfer).permit(:From_Account, :To_Account, :Amount)
+    end
+
+    def find_account_params
+      result = {
+        :label => params[:amount][:label]
+      }
     end
 end
