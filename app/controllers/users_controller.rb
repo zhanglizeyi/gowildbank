@@ -44,10 +44,19 @@ class UsersController < ApplicationController
   end
   
   def show
+    
+    if !logged_in?
+      render inline: "only logged in user can see the infomation "
+      return
+    end
+    
+    if current_user.username != params[:username]
+      render inline: "user can only see self"
+      return
+    end
+
     # find user by user name
     print "show params: #{params}"
-    
-    #@user = User.find(params[:username])
     
     @user = User.find_by username: params[:username]
 

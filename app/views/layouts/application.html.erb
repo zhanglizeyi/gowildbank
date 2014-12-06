@@ -2,6 +2,7 @@
 <html>
   <head>
     <%= csrf_meta_tag %>
+    <%= javascript_include_tag :application %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <style>
 body {
@@ -41,11 +42,17 @@ body {
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href= "/welcome/index">Home</a></li>
-            <li><a href = "/login">Login</a></li>
             <li><a href = "/users/new">Create</a></li>
             <li><a href="/about/about">About</a></li>
             <li><a href= "/contact/contact_info">Contact</a></li>
             <li><a href= "/transfers/new">Transfer</a></li>
+	    <% if logged_in? %>
+	    <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+	    <!-- <li><a href = "/logout">Logout</a></li> -->
+	    <% else %>
+            <li><a href = "/login">Login</a></li>
+	    <% end %>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+
   resources :transfers
 
   get 'contact/contact_info'
@@ -8,8 +10,14 @@ Rails.application.routes.draw do
   get 'show/index'
   get 'show/index1'
   post 'show/index1'
-  get 'login' => 'login#index'
-  post 'login/login'
+  # get 'login' => 'login#index'
+
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+  
+  # post 'login/login'
+  
   get 'users/new'
   get 'users/:username' => 'users#show'
   get 'users/:username/edit' => 'users#edit'
