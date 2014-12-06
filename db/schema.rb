@@ -22,16 +22,6 @@ ActiveRecord::Schema.define(version: 20141205041204) do
     t.datetime "updated_at"
   end
 
-  create_table "dispalies", force: true do |t|
-    t.string   "username"
-    t.string   "password"
-    t.boolean  "remember"
-    t.date     "date"
-    t.string   "DOB"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "operators", force: true do |t|
     t.string   "username"
     t.string   "label"

@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   post 'users/:username' => 'users#update'
   post 'users/:username/accounts' => 'users#create_bank_account'
   delete 'users/:username/accounts/:account_label' => 'users#delete_bank_account'
-  post 'users/:username/accounts/:account_label' => 'transfers#find'
-
+  get 'users/:username/accounts/:account_label' => 'transfers#find_account'
+  
 
   resources :show
   resources :dispalies

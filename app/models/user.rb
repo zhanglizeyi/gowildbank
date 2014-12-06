@@ -11,6 +11,6 @@ class User < ActiveRecord::Base
   #validates :username, :salt, :email, presence: true
   #attr_accessor :username
   has_many :bank_accounts, dependent: :destroy
-
+  has_many :transfers
 end
 

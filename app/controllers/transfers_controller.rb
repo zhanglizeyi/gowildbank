@@ -21,9 +21,10 @@ class TransfersController < ApplicationController
   # POST /transfers.json
   def create
     @transfer = Transfer.new(transfer_params)
+    
+    account_label = User.find_by params[:username]
 
-    account_number = 
-    print "length ==================================> #{@transfer[:From_Account].length}"
+    print "length ==================================> #{account_label}"
 
     if @transfer[:From_Account] == "" || @transfer[:To_Account] == "" ||
       @transfer[:Amount] == "" 
@@ -71,7 +72,8 @@ class TransfersController < ApplicationController
 
   # transfer 
   #find user
-  def find
+  def find_account
+
     input_params = find_account_params
     label = user.find_by label: params[:label]
 
@@ -95,8 +97,13 @@ class TransfersController < ApplicationController
       params.require(:transfer).permit(:From_Account, :To_Account, :Amount)
     end
 
+    def get_balance_params
+      params.require(:bank_accounts).permit(:label , :balance)
+    end
+
     def find_account_params
       result = {
+        :username => params[:username],
         :label => params[:amount][:label]
       }
     end

@@ -142,13 +142,7 @@ class UsersController < ApplicationController
       render inline: "Duplicate label OR empty Label!!!!"
       print "fail to create bank_account of type #{@bank_account.account_type}\n."
     end
-    #redirect_to("/users/#{user.username}")
-   
-    # input_params = create_account_params
-    # user = User.find_by username: input_params[:username]
-    # @user = user
-    # print "user is #{user}"
-    # redirect_to "/users/#{@user.username}"
+  
   end
 
   def delete_bank_account
