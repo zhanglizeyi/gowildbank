@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141206073622) do
+ActiveRecord::Schema.define(version: 20141206091735) do
 
   create_table "bank_accounts", force: true do |t|
     t.string   "account_type"
@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 20141206073622) do
   end
 
   create_table "transfers", force: true do |t|
-    t.string   "From_Account"
-    t.string   "To_Account"
-    t.decimal  "Amount"
+    t.string   "from_account_id"
+    t.string   "to_account_id"
+    t.decimal  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

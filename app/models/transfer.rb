@@ -1,4 +1,14 @@
 class Transfer < ActiveRecord::Base
-	belongs_to :bank_accounts
-	belongs_to :user
+  # has_many :bank_accounts
+  # belongs_to :user
+  
+  # def from_account
+  #   bank_accounts[0]
+  # end
+
+  # def to_account_label=
+      
+  # end
+
+
 end

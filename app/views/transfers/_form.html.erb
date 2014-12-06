@@ -12,17 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :From_Account %><br>
-    <%= f.text_field :From_Account %>
+  <%= f.label :from_account_id %><br>
+  <%= f.select(:from_account_id, options_for_select(@bank_account_options)) %>
   </div>
+
   <div class="field">
-    <%= f.label :To_Account %><br>
-    <%= f.text_field :To_Account %>
+    <%= f.label :to_account_id %><br>
+    <%= f.text_field :to_account_id %>
   </div>
+  
   <div class="field">
-    <%= f.label :Amount %><br>
-    <%= f.text_field :Amount %>
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount, step: "any"%>
   </div>
+
+  
   <div class="actions">
     <%= f.submit %>
   </div>

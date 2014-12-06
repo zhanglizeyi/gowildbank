@@ -45,12 +45,13 @@ body {
             <li><a href = "/users/new">Create</a></li>
             <li><a href="/about/about">About</a></li>
             <li><a href= "/contact/contact_info">Contact</a></li>
-            <li><a href= "/transfers/new">Transfer</a></li>
+
 	    <% if logged_in? %>
-	    <li><%= link_to "Log out", logout_path, method: "delete" %></li>
-	    <!-- <li><a href = "/logout">Logout</a></li> -->
+	      <li><a href=<%="/users/#{current_user.username}"%>><%= current_user.username %></a></li>
+              <li><a href="/transfers/new">Transfer</a></li>
+	      <li><%= link_to "Log out", logout_path, method: "delete" %></li>
 	    <% else %>
-            <li><a href = "/login">Login</a></li>
+              <li><a href = "/login">Login</a></li>
 	    <% end %>
 
           </ul>

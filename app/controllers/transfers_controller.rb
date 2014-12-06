@@ -1,5 +1,6 @@
 class TransfersController < ApplicationController
   before_action :set_transfer, only: [:show, :edit, :update, :destroy]
+  helper_method :bank_accounts_options_for_current_user
 
   # GET /transfers
   # GET /transfers.json
@@ -14,35 +15,85 @@ class TransfersController < ApplicationController
 
   # GET /transfers/new
   def new
+    if !logged_in?
+      #flash[]...
+      redirect_to '/login'
+      return
+    end
+
+    @bank_account_options = bank_account_options_for_current_user
     @transfer = Transfer.new
+  end
+
+
+  def do_transaction(from_account, to_account, amount)
+    from_account.balance -= amount
+    to_account.balance += amount
+    
+    ActiveRecord::Base.transaction do
+      from_account.save
+      to_account.save
+    end
   end
 
   # POST /transfers
   # POST /transfers.json
   def create
-    @transfer = Transfer.new(transfer_params)
+
+    input_params = transfer_params
+    from_account_id = input_params[:from_account_id]
     
-    account_label = User.find_by params[:username]
+    # FIXME: id is actual label!!!
+    to_account_label = input_params[:to_account_id]    
+    amount = input_params[:amount].to_f
 
-    print "length ==================================> #{account_label}"
+    from_account = BankAccount.find_by id: from_account_id
+    if from_account.nil?
+      render inline: "can not find sender"
+      return
+    end
 
-    if @transfer[:From_Account] == "" || @transfer[:To_Account] == "" ||
-      @transfer[:Amount] == "" 
-      render text: "input can not be empty!!"
-    else
-        if @transfer[:From_Account].length != 12 || @transfer[:To_Account].length != 12
-          render text: "Could not find valid account"
-        else
-          respond_to do |format|
-          if @transfer.save
-            format.html { redirect_to @transfer, notice: 'Transfer was successfully created.' }
-            format.json { render :show, status: :created, location: @transfer }
-          else
-            format.html { render :new }
-            format.json { render json: @transfer.errors, status: :unprocessable_entity }
-          end
-        end
+    current_user_bank_account_ids = current_user.bank_accounts.map do |account| 
+      account.id
+    end 
+
+
+    puts "from_account_id #{from_account_id}"
+    puts "current_user_bank_account_ids #{current_user_bank_account_ids}"
+
+    if !current_user_bank_account_ids.include?(from_account_id.to_i)
+      render inline: "You can not operate on other's account"
+      return
+    end
+
+    puts "to_account_label #{to_account_label}"
+    to_account = BankAccount.find_by label: to_account_label
+
+    if to_account.nil?
+      render inline: "Can not find receiver"
+      return
+    end
+
+    to_account_id = to_account.id
+
+    transfer_data = {
+      from_account_id: from_account_id,
+      to_account_id: to_account_id,
+      amount: amount
+    }
+
+    @transfer = Transfer.new(transfer_data)
+    if @transfer.save
+      if do_transaction(from_account, to_account, amount)
+        puts "transfer success"
+        redirect_to "/users/#{current_user.username}"
+      else
+        render inline: "transfer failed"
+        return
       end
+    else
+      render inline: "transfer failed"
+      return
     end
   end
 
@@ -86,6 +137,16 @@ class TransfersController < ApplicationController
     print "amount =============================> #{amount}"
   end
 
+  def bank_account_options_for_current_user
+    if current_user.nil? || current_user.bank_accounts.nil?
+      return []
+    end
+
+    current_user.bank_accounts.map do |account|
+      [account.label, account.id]
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transfer
@@ -94,7 +155,7 @@ class TransfersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transfer_params
-      params.require(:transfer).permit(:From_Account, :To_Account, :Amount)
+      params.require(:transfer).permit(:from_account_id, :to_account_id, :amount)
     end
 
     def get_balance_params
