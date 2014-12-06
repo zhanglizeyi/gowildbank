@@ -12,5 +12,6 @@ class User < ActiveRecord::Base
   #attr_accessor :username
   has_many :bank_accounts, dependent: :destroy
   has_many :transfers
+  has_secure_password
 end
 

@@ -16,47 +16,31 @@ class UsersController < ApplicationController
     input_user = user_params
     password = input_user[:password]
     password_confirmation = input_user[:password_confirmation]
-    
-    #if password != password_confirmation
-    # Report error to user and return
-    #end
-
-    # user_data is a object with fields: username, email, salt, encrypted_password
     user_data = {}
     user_data[:username] = input_user[:username]
     user_data[:email] = input_user[:email]
-    user_data[:salt] = BCrypt::Engine.generate_salt
-    user_data[:encrypted_password] = BCrypt::Engine.hash_secret(password, user_data[:salt])
-    
-    #user_data[:debit] = 0.0
-    #user_data[:credit] = 0.0
-    #user = User.find_by username: username
-
-    #input_name = user_params[:username]
-    #input_name_exist = input_user.find_by username: input_name
-
-    #input_email = user_params[:email]
-    #input_email_exist = User.find_by email: input_email
+    user_data[:password] = input_user[:password]
+    user_data[:password_confirmation] = input_user[:password_confirmation]
 
     user_exist =  User.find_by username: params[:username]
     print "user============================> #{user_exist}"
 
+    if user_exist != nil
+      render inline: "user #{user_exist} is already in db"
+      return
+    end
 
-    if user_data[:username] != "" && user_data[:email] != "" &&
-      user_data[:salt] !="" && user_data[:encrypted_password] != "" &&
-      user_exist != input_user[:username]
-        
-        @user = User.new(user_data)
-        @user.save
-        print "save success"
-        redirect_to("/login")
-        #render 'new'
-      else
-        flash.notice = "invalid"
-        #render 'new'
-        print "save fails"
-        render inline: "Can't access with less information, full fill"
-      end
+    new_user = User.new(user_data)
+
+    if new_user.save
+      @user = new_user
+      print "save success"
+      redirect_to("/login")
+    else
+      render inline: "create user failed"
+      return
+    end
+
   end
   
   def show
