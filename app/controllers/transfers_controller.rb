@@ -27,8 +27,9 @@ class TransfersController < ApplicationController
 
 
   def do_transaction(from_account, to_account, amount)
-    from_account.balance -= amount
-    to_account.balance += amount
+  
+      from_account.balance -= amount
+      to_account.balance += amount
     
     ActiveRecord::Base.transaction do
       from_account.save
@@ -84,15 +85,19 @@ class TransfersController < ApplicationController
 
     @transfer = Transfer.new(transfer_data)
     if @transfer.save
-      if do_transaction(from_account, to_account, amount)
-        puts "transfer success"
-        redirect_to "/users/#{current_user.username}"
+      if from_account.balance < amount
+        redirect_to "/transfers/new" 
+      else  
+        if do_transaction(from_account, to_account, amount)
+          puts "transfer success"
+          redirect_to "/users/#{current_user.username}"
+        else
+          render inline: "transfer failed"
+          return
+        end
+      end
       else
         render inline: "transfer failed"
-        return
-      end
-    else
-      render inline: "transfer failed"
       return
     end
   end
