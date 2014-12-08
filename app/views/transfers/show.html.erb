@@ -1,5 +1,5 @@
+<div class = "tr-center">
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>From account:</strong>
   <%= @transfer.From_Account %>
@@ -17,7 +17,20 @@
 
 <p>
 	<strong>Time:</strong>
-	<%= Time.now.strftime("%d/%m/%Y %H:%M") %>
+	<%= Time.strftime("%d/%m/%Y %H:%M") %>
 </p>
 
 <%= link_to 'Back', transfers_path %>
+</div>
+
+<style>
+	.tr-center{
+		text-align: center;
+		background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrC3aWdLlOxO6Y3VKXO0g_iJK7Q_NkzTU9l3TikD_UIm65iv1wGA");
+		text-align: ceter;
+	}
+	p{
+		text-align: center;
+	}
+
+</style>

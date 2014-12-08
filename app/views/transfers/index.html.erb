@@ -1,5 +1,5 @@
+<div class="list-center">
 <h1>Listing transfers history</h1>
-
 <table>
   <thead>
     <tr>
@@ -10,11 +10,12 @@
       <th colspan="3"></th>
     </tr>
 
-  </thead3
+  </thead>
 
   <tbody>
     <% @transfers.each do |transfer| %>
       <tr>
+        <!-- need to change to label  -->
         <td><%= transfer.from_account_id %></td>
         <td><%= transfer.to_account_id %></td>
         <td><%= transfer.amount %></td>
@@ -25,5 +26,16 @@
   </tbody>
 </table>
 <br>
-
 <%= link_to 'Make A Transfer', new_transfer_path %>
+</div>
+
+
+
+<style>
+   
+    .list-center{
+      text-align: center;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrC3aWdLlOxO6Y3VKXO0g_iJK7Q_NkzTU9l3TikD_UIm65iv1wGA");
+      color: #000000;
+    }
+</style>

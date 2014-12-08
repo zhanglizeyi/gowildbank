@@ -1,14 +1,8 @@
-<style>
-  <!-- .form-group{ -->
-  <!-- font-size: 200%; -->
-  <!-- color: rgb(200,0,0); -->
-  <!-- } -->
-</style>
 
 <div class="row">
   
-  <div class="col-md-6 col-md-offset-3">
-
+  <div class="col-xs-4 col-xs-offset-4">
+    <div class = "mm">
     <%= form_for(:session, url: login_path) do |f| %>
     
     <%= f.label :username %>
@@ -16,9 +10,10 @@
 
     <%= f.label :password %>
     <%= f.password_field :password, class: "form-control"%>
-    
+    <div class ="kk">
     <%= f.submit "Login", class: "btn btn-primary"%>
-    
+    </div>
+    </div>
     <!-- <div class="form-group"> -->
     <!--   <label for="user[username]">User Name</label> -->
     <!--   <%= f.text_field :username, class: "form-control"%> -->
@@ -34,3 +29,19 @@
   </div>
 
 </div>
+
+<style>
+  .kk{
+    margin-top: 15px;
+  }
+  .mm{
+    margin-top: 15px;
+    text-align: center;
+    color: #00CC66;
+  }
+  .row{
+    font-size: 15px;
+    background-image: url("https://skitguys.com/images/made/images/video_images/Retro_Green_Welcome_360_203.jpg");
+    height: 20%;
+  }
+</style>

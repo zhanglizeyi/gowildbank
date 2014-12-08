@@ -1,3 +1,4 @@
+<div class = "tansfer_center">
 <%= form_for(@transfer) do |f| %>
   <% if @transfer.errors.any? %>
     <div id="error_explanation">
@@ -31,3 +32,21 @@
     <%= f.submit %>
   </div>
 <% end %>
+</div>
+
+<style>
+  .actions{
+    margin-top: 10px;
+    color: #000000;
+  }
+  field{
+    margin-right: 20px;
+  }
+  .transfer_center{
+    text-align: center;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrC3aWdLlOxO6Y3VKXO0g_iJK7Q_NkzTU9l3TikD_UIm65iv1wGA");
+  }
+</style>
+
+
+

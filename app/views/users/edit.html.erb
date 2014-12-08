@@ -1,3 +1,4 @@
+<div class = "wel-come">
 <h1>Profile of User: <%= @user.username %></h1>
 <div>
   <%= form_for(:user, :url => {:controller => 'users', :action => 'update'}) do |f| %>
@@ -6,4 +7,14 @@
   <%= f.submit :OK %>
   <% end %>
 </div>
+</div>
 
+<style>
+	.wel-come{
+		background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrC3aWdLlOxO6Y3VKXO0g_iJK7Q_NkzTU9l3TikD_UIm65iv1wGA");
+		text-align: center;
+	}
+	.button_showh{
+		color: #000000;
+	}
+</style>
